@@ -12,7 +12,7 @@ pipeline {
             }
             post {
                 always {
-                    mail to: "rosealapp24@gmail.com",
+                    emailext to: "rosealapp24@gmail.com",
                     subject: "UnitAndIntegrationTests: ${currentBuild.currentResult}",
                     body: "UnitAndIntegrationTests status: ${currentBuild.currentResult}",
                     attachLog: true
