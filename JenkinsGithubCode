@@ -1,0 +1,56 @@
+pipeline {
+    agent any
+    stages {
+        stage('Build') {
+            steps {
+                echo "Building using Gradle"
+            }
+        }
+        stage('UnitAndIntegrationTests') {
+            steps {
+                echo "Selenium Running! Testing Product"
+            }
+            post {
+                always {
+                    emailext to: "iamkevinjose@gmail.com",
+                    subject: "UnitAndIntegrationTests: ${currentBuild.currentResult}",
+                    body: "UnitAndIntegrationTests status: ${currentBuild.currentResult}",
+                    attachLog: true
+                }
+            }
+        }
+        stage('CodeAnalysis') {
+            steps {
+                echo "Analysing code with Fortify"
+            }
+        }
+        stage('SecurityScan') {
+            steps {
+                echo "Scanning for Vulnerabilities using Nessus"
+            }
+            post {
+                always {
+                    emailext to: "iamkevinjose@gmail.com",
+                    subject: "SecurityScan: ${currentBuild.currentResult}",
+                    body: "SecurityScan status: ${currentBuild.currentResult}",
+                    attachLog: true
+                }
+            }
+        }
+        stage('DeployToStaging') {
+            steps {
+                echo "Depoloying code to staging enivronment:AWS CodeDeploy running"
+            }
+        }
+        stage('IntegrationTestsOnStaging') {
+            steps {
+                echo "TestNG tests for production environment"
+            }
+        }
+        stage('DeployToProduction') {
+            steps {
+                echo "Depoloying code to prodcution:AWS CodeDeploy running. "
+            }
+        }
+    }
+}
