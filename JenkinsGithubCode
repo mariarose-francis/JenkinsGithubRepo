@@ -3,7 +3,7 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                echo " step 1 :Building Application | Tool used: Apache Ant"
+                echo "Building Application | Tool used: Apache Ant"
             }
         }
         stage('Unit_And_IntegrationTests') {
