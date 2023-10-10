@@ -3,53 +3,53 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                echo "Building using Gradle"
+                echo "Building Application | Tool used: Apache Ant"
             }
         }
-        stage('UnitAndIntegrationTests') {
+        stage('Unit_And_IntegrationTests') {
             steps {
-                echo "Selenium Running! Testing Product"
+                echo "Unit and Integration Testing | Tool used: Mockito"
             }
             post {
                 always {
-                    emailext to: "iamkevinjose@gmail.com",
+                    emailext to: "rosealapp24@gmail.com",
                     subject: "UnitAndIntegrationTests: ${currentBuild.currentResult}",
                     body: "UnitAndIntegrationTests status: ${currentBuild.currentResult}",
                     attachLog: true
                 }
             }
         }
-        stage('CodeAnalysis') {
+        stage('Code_Analysis') {
             steps {
-                echo "Analysing code with Fortify"
+                echo "Analysing Code | Tool used: Checkstyle"
             }
         }
-        stage('SecurityScan') {
+        stage('Security_Scan') {
             steps {
-                echo "Scanning for Vulnerabilities using Nessus"
+                echo "Scanning the Code | Tool used: Veracode"
             }
             post {
                 always {
-                    emailext to: "iamkevinjose@gmail.com",
+                    emailext to: "rosealapp24@gmail.com",
                     subject: "SecurityScan: ${currentBuild.currentResult}",
                     body: "SecurityScan status: ${currentBuild.currentResult}",
                     attachLog: true
                 }
             }
         }
-        stage('DeployToStaging') {
+        stage('Deploy_To_Staging') {
             steps {
-                echo "Depoloying code to staging enivronment:AWS CodeDeploy running"
+                echo "Staging enivronment Deployment| Tool used: Ansible"
             }
         }
-        stage('IntegrationTestsOnStaging') {
+        stage('Integration_Tests_On_Staging') {
             steps {
-                echo "TestNG tests for production environment"
+                echo "Production Environment Testing | Tool used: Postman"
             }
         }
-        stage('DeployToProduction') {
+        stage('Deploy_To_Production') {
             steps {
-                echo "Depoloying code to prodcution:AWS CodeDeploy running. "
+                echo "Production Depoloyment |Tool used: WildFly"
             }
         }
     }
